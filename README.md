@@ -1,12 +1,11 @@
 # Boost-Search-Engine
 基于正倒排索引的Boost搜索引擎
 
----
 
-
-## 📘 **Project Overview | 项目简介**
+## 📘 Project Overview | 项目简介
 
 **English:**
+
 The **Boost Search Engine** is a lightweight C++ search engine powered by the **Boost** libraries.
 It demonstrates the core principles of modern search engines — including **data parsing**, **forward indexing**, **inverted indexing**, and **efficient query retrieval** — through a concise and practical implementation.
 
@@ -21,9 +20,10 @@ The project provides an end-to-end workflow:
 By combining **Boost.System**, **Boost.Filesystem**, and modern **C++11** features,
 this project provides a compact yet realistic example of how search engines organize and retrieve information efficiently.
 
----
+
 
 **中文：**
+
 **《基于正倒排索引的 Boost 搜索引擎》** 是一个使用 **C++** 与 **Boost 库** 实现的轻量级搜索引擎项目。
 它完整展示了现代搜索引擎的核心工作原理，包括 **网页数据解析**、**正排索引构建**、**倒排索引建立**、以及 **关键词查询与结果排序** 的完整流程。
 
@@ -38,9 +38,9 @@ this project provides a compact yet realistic example of how search engines orga
 通过结合 **Boost.System**、**Boost.Filesystem** 与 **C++11 标准库**，
 本项目以简洁的方式实现了搜索引擎的核心索引与检索机制，适合作为学习搜索引擎原理的参考示例。
 
----
 
-## 💡 **Example Usage | 使用示例**
+
+## 💡 Example Usage | 使用示例
 
 ```bash
 make
@@ -48,9 +48,8 @@ make
 ./search "乔布斯 发布 苹果 手机"
 ```
 
----
 
-## 🧱 **Tech Stack | 技术栈**
+## 🧱 Tech Stack | 技术栈
 
 | 模块   | 技术                             |
 | ---- | ------------------------------ |
@@ -61,7 +60,7 @@ make
 
 ---
 
-## 🧩 **Summary | 总结**
+## 🧩 Summary | 总结
 
 This project provides an educational and practical demonstration of how search engines organize and retrieve information efficiently using indexing techniques.
 
