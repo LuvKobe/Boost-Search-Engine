@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <title>Boost 搜索引擎</title>
+    
+    <style>
+        /* 去掉网页中的所有的默认内外边距 */
+        * {
+            margin: 0;
+            /* 设置外边距 */
+            padding: 0;
+            /* 设置内边距 */
+    
+        }
+    
+        /* 将我们的body内的内容100%和html的呈现吻合 */
+        html,
+        body {
+            height: 100%;
+        }
+    
+        /* 页面主容器 */
+        .container {
+            width: 800px;           /* 固定宽度 */
+            margin: 0 auto;         /* 水平居中 */
+            margin-top: 15px;       /* 距离顶部 15px */
+        }
+    
+        /* 搜索栏外层容器 */
+        .container .search {
+            width: 100%;
+            height: 52px;
+            display: flex;           /* 使用 Flex 布局让输入框和按钮在同一行对齐 */
+            align-items: stretch;    /* 垂直方向等高对齐 */
+        }
+    
+        /* 输入框样式 */
+        .container .search input {
+            flex: 1;                             /* 自动占满剩余宽度 */
+            height: 52px;                        /* 高度与按钮一致 */
+            border: 1px solid #c9c9c9;           /* 边框浅灰色 */
+            border-right: none;                  /* 去掉右边框，与按钮拼接 */
+            padding: 0 12px;                     /* 左右内边距 */
+            color: #666;                         /* 输入文字颜色 */
+            font-size: 14px;                     /* 字体大小 */
+            box-sizing: border-box;              /* 内边距计入总宽度 */
+            border-radius: 26px 0 0 26px;        /* 左半圆角 */
+            outline: none;                       /* 去掉聚焦时的默认蓝色外框 */
+        }
+    
+        /* 按钮样式 */
+        .container .search button {
+            width: 140px;                        /* 固定宽度 */
+            height: 52px;                        /* 与输入框同高 */
+            border: 1px solid #4e6ef2;         /* 与背景色一致的边框 */
+            border-left: none;                   /* 去掉左边框，与输入框无缝连接 */
+            background-color: #4e6ef2;         /* 蓝色背景 */
+            color: #fff;                       /* 白色文字 */
+            font-size: 19px;                     /* 字体稍大 */
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            border-radius: 0 26px 26px 0;        /* 右半圆角 */
+            cursor: pointer;                     /* 鼠标悬停变成手型 */
+        }
+    
+        /* 悬停时稍微变暗，点击时更暗，提供交互反馈 */
+        /* 悬停时稍微变暗，点击时更暗，提供交互反馈 */
+        .container .search button:hover { filter: brightness(0.95); }
+        .container .search button:active { filter: brightness(0.9); }
+    
+        /* 搜索结果区域 */
+        .container .result {
+            width: 100%;
+        }
+    
+        /* 单条搜索结果外框 */
+        .container .result .item {
+            margin-top: 15px;
+        }
+    
+        /* 搜索结果标题链接 */
+        .container .result .item a {
+            display: block;                      /* 块级元素独占一行 */
+            text-decoration: none;               /* 去掉下划线 */
+            font-size: 20px;
+            color: #4e6ef2;
+        }
+
+        /* 鼠标悬停标题时显示下划线 */
+        .container .result .item a:hover {
+            text-decoration: underline;
+        }
+    
+        /* 搜索摘要文字 */
+        .container .result .item p {
+            margin-top: 5px;
+            font-size: 16px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+    
+        /* 搜索结果的 URL */
+        .container .result .item i {
+            font-style: normal;                  /* 取消斜体 */
+            color: green;                      /* 绿色文字 */
+        }
+    
+        /* 五色 BOOST Logo */
+        .logo {
+            font-size: 92px;                     /* 大字号 */
+            font-weight: 700;                    /* 粗体 */
+            letter-spacing: -3px;                /* 字距收紧 */
+            user-select: none;                   /* 禁止选择文字 */
+            /* margin-bottom: 40px;                 Logo 与搜索框间距 */
+        }
+    
+        /* 每个字母独立上色：蓝、红、黄、蓝、绿 */
+        .logo span:nth-child(1) { color: #4285F4; }
+        .logo span:nth-child(2) { color: #EA4335; }
+        .logo span:nth-child(3) { color: #FBBC05; }
+        .logo span:nth-child(4) { color: #4285F4; }
+        .logo span:nth-child(5) { color: #34A853; }
+    
+        /* 页面整体居中布局 */
+        body {
+            display: flex;
+            flex-direction: column;              /* 垂直排列 Logo 和搜索框 */
+            align-items: center;                 /* 水平居中 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 五色 BOOST Logo（位于搜索框上方正中） -->
+  <div class="logo">
+    <span>B</span><span>O</span><span>O</span><span>S</span><span>T</span>
+  </div>
+
+    <div class="container"> 
+        <div class="search">
+            <input type="text" placeholder="输入搜索关键字">
+            <button onclick="Search()">搜索一下</button>
+        </div>
+        <div class="result">
+            <!-- 下面是静态的网页内容, 所以注释掉, 然后改为动态的 -->
+            <!-- <div class="item">
+                <a href="#">这是标题</a>
+                <p>这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要</p>
+                <i>https://www.boost.org/doc/libs/latest/doc/html/doxygen/posix_time_reference/time__serialize_8hpp_1a3042b46f44a7ac09bec04d879d1d40f2.html</i>
+            </div>
+            <div class="item">
+                <a href="#">这是标题</a>
+                <p>这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要</p>
+                <i>https://www.boost.org/doc/libs/latest/doc/html/doxygen/posix_time_reference/time__serialize_8hpp_1a3042b46f44a7ac09bec04d879d1d40f2.html</i>
+            </div>
+            <div class="item">
+                <a href="#">这是标题</a>
+                <p>这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要</p>
+                <i>https://www.boost.org/doc/libs/latest/doc/html/doxygen/posix_time_reference/time__serialize_8hpp_1a3042b46f44a7ac09bec04d879d1d40f2.html</i>
+            </div>
+            <div class="item">
+                <a href="#">这是标题</a>
+                <p>这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要</p>
+                <i>https://www.boost.org/doc/libs/latest/doc/html/doxygen/posix_time_reference/time__serialize_8hpp_1a3042b46f44a7ac09bec04d879d1d40f2.html</i>
+            </div>
+            <div class="item">
+                <a href="#">这是标题</a>
+                <p>这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要</p>
+                <i>https://www.boost.org/doc/libs/latest/doc/html/doxygen/posix_time_reference/time__serialize_8hpp_1a3042b46f44a7ac09bec04d879d1d40f2.html</i>
+            </div>
+            <div class="item">
+                <a href="#">这是标题</a>
+                <p>这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要</p>
+                <i>https://www.boost.org/doc/libs/latest/doc/html/doxygen/posix_time_reference/time__serialize_8hpp_1a3042b46f44a7ac09bec04d879d1d40f2.html</i>
+            </div> -->
+        </div>
+    </div>
+    <script>
+        function Search()
+        {
+            // 是浏览器的一个弹出框
+            // alert("hello js!");
+
+            // 1. 提取数据, '$'可以理解成就是JQuery的别称(JQuery类似于STL)
+            let query = $(".container .search input").val(); 
+            if (query == '' || query == null)
+            {
+                return;
+            }
+            console.log("query = " + query); // console是浏览器的对话框，可以用来进行查看js数据
+
+            // 2. 发起http请求, ajax: JQuery中的一个和后端进行数据交互的函数, 俗称 '阿甲克斯'
+            $.ajax({
+                type: "GET", 
+                url: "/s?word=" + query,
+                success: function(data)
+                {
+                    console.log(data);
+                    BuildHtml(data);
+                }
+            })
+        }
+
+        // 构建新网页
+        function BuildHtml(data)
+        {
+            if (data == '' || data == null)
+            {
+                document.write("搜索的内容没有");
+                return;
+            }
+            // 获取html中的result标签
+            let result_lable = $(".container .result");
+
+            // 清空历史搜索结果
+            result_lable.empty();
+
+            // 此时data是一个很长的Json格式的数组, 所以要挨个遍历
+            for (let elem of data)
+            {
+                // 调试打印
+                // console.log(elem.title);
+                // console.log(elem.url);
+
+                // 构建a标签
+                let a_lable = $("<a>", {
+                    text: elem.title,
+                    href: elem.url,
+                    // 跳转到新的页面, 不在原网页直接显示
+                    target: "_blank"
+                });
+
+                // 构建p标签
+                let p_lable = $("<p>", {
+                    text: elem.desc
+                });
+
+                // 构建i标签
+                let i_lable = $("<i>", {
+                    text: elem.url
+                });
+
+                // 合并a/p/i标签
+                let div_lable = $("<div>", {
+                    class: "item"
+                });
+
+                // 把a/p/i添加进item标签中
+                a_lable.appendTo(div_lable);
+                p_lable.appendTo(div_lable);
+                i_lable.appendTo(div_lable);
+
+                // 把item添加进result标签中
+                div_lable.appendTo(result_lable);
+            }
+        }
+    </script>
+</body>
+</html>
