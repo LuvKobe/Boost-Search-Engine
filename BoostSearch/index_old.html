@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <title>Boost 搜索引擎</title>
+    
+    <style>
+        /* 去掉网页中的所有的默认内外边距 */
+        * {
+            margin: 0;  /* 设置外边距 */
+            padding: 0; /* 设置内边距 */
+        }
+    
+        /* 将我们的body内的内容100%和html的呈现吻合 */
+        html, body {
+            height: 100%;
+        }
+    
+        /* 类选择器.container */
+        .container 
+        {
+            width: 800px;       /* 设置div的宽度 */
+            margin: 0px auto;   /* 通过设置外边距达到居中对齐的目的 */
+            margin-top: 15px;   /* 设置外边距的上边距，保持元素和网页的上部距离 */
+        }
+    
+        /* 复合选择器，选中container 下的 search */
+        .container .search
+        {
+            /* 宽度与父标签保持一致 */
+            width: 100%;
+            /* 高度设置为52px */
+            height: 52px;
+        }
+
+        /* 先选中input标签， 直接设置标签的属性，先要选中， input：标签选择器*/
+        /* input在进行高度设置的时候，没有考虑边框的问题 */
+        .container .search input
+        {
+            /* 设置left浮动 */
+            float: left;
+            width: 600px;
+            height: 50px;
+            /* 设置边框属性：边框的宽度，样式，颜色 */
+            border: 1px solid gray;
+            /* 去掉input输入框的右边框 */
+            border-right: none;
+            /* 设置内边距，默认文字不要和左侧边框紧挨着 */
+            padding-left: 10px;
+            /* 设置input内部的字体的颜色和样式 */
+            color: #CCC;
+            font-size: 14px;
+            border-radius: 24px;             /* 圆角外观 */
+        }
+
+        /* 先选中button标签， 直接设置标签的属性，先要选中， button：标签选择器*/
+        .container .search button
+        {
+            /* 设置left浮动 */
+            float: left;
+            width: 120px;
+            height: 52px;
+            /* 设置button的背景颜色，#4e6ef2 */
+            background-color: #4e6ef2;
+            /* 设置button中的字体颜色 */
+            color: #FFF;
+            /* 设置字体的大小 */
+            font-size: 19px;
+            font-family:Georgia, 'Times New Roman', Times, serif;
+        }
+        
+        .container .result
+        {
+            width: 100%;
+        }
+
+        .container .result .item
+        {
+            margin-top: 15px;
+        }
+
+        .container .result .item a
+        {
+            /* 设置为块级元素，单独站一行 */
+            display: block;
+            /* a标签的下划线去掉 */
+            text-decoration: none;
+            /* 设置a标签中的文字的字体大小 */
+            font-size: 20px;
+            /* 设置字体的颜色 */
+            color: #4e6ef2;
+        }
+
+        /* 当鼠标移动到搜索出的结果内容上时, 会自动出现下划线 */
+        .container .result .item a:hover {
+            text-decoration: underline;
+        }
+
+        .container .result .item p
+        {
+            margin-top: 5px;
+            font-size: 16px;
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        .container .result .item i
+        {
+            /* 设置为块级元素，单独站一行 */
+            /* 取消斜体风格 */
+            font-style: normal;
+            color: green;
+        }
+        
+        /*BOOST 五色 Logo（模仿 Google）*/
+        .logo {
+        font-size: 92px;            /* 大字号：视觉中心 */
+        font-weight: 700;           /* 加粗 */
+        letter-spacing: -3px;       /* 紧凑字距 */
+        user-select: none;          /* 禁止选择文字 */
+        margin-bottom: 40px;        /* 与搜索框的间距 */
+        }
+        /* 每个字母独立上色：蓝、红、黄、蓝、绿 */
+        .logo span:nth-child(1) { color: #4285F4; } /* B - 蓝 */
+        .logo span:nth-child(2) { color: #EA4335; } /* O - 红 */
+        .logo span:nth-child(3) { color: #FBBC05; } /* O - 黄 */
+        .logo span:nth-child(4) { color: #4285F4; } /* S - 蓝 */
+        .logo span:nth-child(5) { color: #34A853; } /* T - 绿 */
+        
+        /* 居中布局：让 Logo 与搜索框在屏幕正中央 */
+        body {
+            display: flex;
+            flex-direction: column;     /* 垂直排列 Logo 与搜索条 */
+            align-items: center;        /* 水平居中 */
+            
+            /* 往上移动整体区域：按需微调这个值即可 */
+                      /* ↑ 想再靠上一点，增大这个数；想居中，改回 0 */
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 五色 BOOST Logo（位于搜索框上方正中） -->
+  <div class="logo">
+    <span>B</span><span>O</span><span>O</span><span>S</span><span>T</span>
+  </div>
+
+    <div class="container"> 
+        <div class="search">
+            <input type="text" value="输入搜索关键字">
+            <button onclick="Search()">搜索一下</button>
+        </div>
+        <div class="result">
+            <!-- 下面是静态的网页内容, 所以注释掉, 然后改为动态的 -->
+            <!-- <div class="item">
+                <a href="#">这是标题</a>
+                <p>这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要</p>
+                <i>https://www.boost.org/doc/libs/latest/doc/html/doxygen/posix_time_reference/time__serialize_8hpp_1a3042b46f44a7ac09bec04d879d1d40f2.html</i>
+            </div>
+            <div class="item">
+                <a href="#">这是标题</a>
+                <p>这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要</p>
+                <i>https://www.boost.org/doc/libs/latest/doc/html/doxygen/posix_time_reference/time__serialize_8hpp_1a3042b46f44a7ac09bec04d879d1d40f2.html</i>
+            </div>
+            <div class="item">
+                <a href="#">这是标题</a>
+                <p>这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要</p>
+                <i>https://www.boost.org/doc/libs/latest/doc/html/doxygen/posix_time_reference/time__serialize_8hpp_1a3042b46f44a7ac09bec04d879d1d40f2.html</i>
+            </div>
+            <div class="item">
+                <a href="#">这是标题</a>
+                <p>这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要</p>
+                <i>https://www.boost.org/doc/libs/latest/doc/html/doxygen/posix_time_reference/time__serialize_8hpp_1a3042b46f44a7ac09bec04d879d1d40f2.html</i>
+            </div>
+            <div class="item">
+                <a href="#">这是标题</a>
+                <p>这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要</p>
+                <i>https://www.boost.org/doc/libs/latest/doc/html/doxygen/posix_time_reference/time__serialize_8hpp_1a3042b46f44a7ac09bec04d879d1d40f2.html</i>
+            </div>
+            <div class="item">
+                <a href="#">这是标题</a>
+                <p>这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要</p>
+                <i>https://www.boost.org/doc/libs/latest/doc/html/doxygen/posix_time_reference/time__serialize_8hpp_1a3042b46f44a7ac09bec04d879d1d40f2.html</i>
+            </div> -->
+        </div>
+    </div>
+    <script>
+        function Search()
+        {
+            // 是浏览器的一个弹出框
+            // alert("hello js!");
+
+            // 1. 提取数据, '$'可以理解成就是JQuery的别称(JQuery类似于STL)
+            let query = $(".container .search input").val(); 
+            if (query == '' || query == null)
+            {
+                return;
+            }
+            console.log("query = " + query); // console是浏览器的对话框，可以用来进行查看js数据
+
+            // 2. 发起http请求, ajax: JQuery中的一个和后端进行数据交互的函数, 俗称 '阿甲克斯'
+            $.ajax({
+                type: "GET", 
+                url: "/s?word=" + query,
+                success: function(data)
+                {
+                    console.log(data);
+                    BuildHtml(data);
+                }
+            })
+        }
+
+        // 构建新网页
+        function BuildHtml(data)
+        {
+            if (data == '' || data == null)
+            {
+                document.write("搜索的内容没有");
+                return;
+            }
+            // 获取html中的result标签
+            let result_lable = $(".container .result");
+
+            // 清空历史搜索结果
+            result_lable.empty();
+
+            // 此时data是一个很长的Json格式的数组, 所以要挨个遍历
+            for (let elem of data)
+            {
+                // 调试打印
+                // console.log(elem.title);
+                // console.log(elem.url);
+
+                // 构建a标签
+                let a_lable = $("<a>", {
+                    text: elem.title,
+                    href: elem.url,
+                    // 跳转到新的页面, 不在原网页直接显示
+                    target: "_blank"
+                });
+
+                // 构建p标签
+                let p_lable = $("<p>", {
+                    text: elem.desc
+                });
+
+                // 构建i标签
+                let i_lable = $("<i>", {
+                    text: elem.url
+                });
+
+                // 合并a/p/i标签
+                let div_lable = $("<div>", {
+                    class: "item"
+                });
+
+                // 把a/p/i添加进item标签中
+                a_lable.appendTo(div_lable);
+                p_lable.appendTo(div_lable);
+                i_lable.appendTo(div_lable);
+
+                // 把item添加进result标签中
+                div_lable.appendTo(result_lable);
+            }
+        }
+    </script>
+</body>
+</html>
