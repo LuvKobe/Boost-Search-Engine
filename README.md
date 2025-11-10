@@ -1,16 +1,13 @@
 # Boost-Search-Engine
 基于正倒排索引的Boost搜索引擎
 
-
-# 🧭 Boost 搜索引擎项目
-
 一个基于 **C++** 实现的轻量级站内搜索引擎，
 使用 `Boost`、`cppjieba`、`cpp-httplib`、`jsoncpp` 等组件完成文档解析、索引建立与 HTTP 服务，
 支持前后端完整交互，提供搜索、摘要提取与结果展示功能。
 
 ---
 
-## 🚀 项目简介
+### 🚀 项目简介
 
 本项目模拟真实搜索引擎的核心流程，从本地 HTML 文档中提取内容、建立索引，并通过浏览器提供搜索接口。
 
@@ -25,7 +22,7 @@
 
 ---
 
-## 🏗️ 项目结构
+### 🏗️ 项目结构
 
 ```
 boost_search/
@@ -52,7 +49,7 @@ boost_search/
 
 ---
 
-## ⚙️ 环境依赖
+### ⚙️ 环境依赖
 
 * **编译器**：GCC / G++  ≥ 7.0
 * **C++ 标准**：C++11
@@ -65,9 +62,9 @@ boost_search/
 
 ---
 
-## 🧩 使用步骤
+### 🧩 使用步骤
 
-### 1️⃣ 准备数据
+#### 1️⃣ 准备数据
 
 下载 Boost 官方文档：
 
@@ -79,7 +76,7 @@ cp -r boost_1_89_0/doc/html/* data/input/
 
 ---
 
-### 2️⃣ 生成原始文本（去标签）
+#### 2️⃣ 生成原始文本（去标签）
 
 ```bash
 g++ parser.cpp -o parser -lboost_system -lboost_filesystem -std=c++11
@@ -94,7 +91,7 @@ data/raw_html/raw.txt
 
 ---
 
-### 3️⃣ 建立索引与检索测试
+#### 3️⃣ 建立索引与检索测试
 
 ```bash
 g++ debug.cc -o debug -ljsoncpp -std=c++11
@@ -111,7 +108,7 @@ Please Enter Your Search Query# regex
 
 ---
 
-### 4️⃣ 启动 HTTP 服务端
+#### 4️⃣ 启动 HTTP 服务端
 
 ```bash
 g++ http_server.cc -o http_server -std=c++11 -ljsoncpp
@@ -126,7 +123,7 @@ http://localhost:8081
 
 ---
 
-### 5️⃣ 打开前端页面
+#### 5️⃣ 打开前端页面
 
 在浏览器中访问：
 
@@ -138,7 +135,7 @@ http://localhost:8081/index.html
 
 ---
 
-## 🧠 搜索原理简介
+### 🧠 搜索原理简介
 
 1. **正排索引 (Forward Index)**
 
@@ -163,7 +160,7 @@ http://localhost:8081/index.html
 
 ---
 
-## 💡 前端说明
+### 💡 前端说明
 
 * **HTML + CSS + jQuery** 实现；
 * 搜索输入框调用 Ajax 请求 `/s?word=xxx`；
@@ -174,7 +171,7 @@ http://localhost:8081/index.html
 
 ---
 
-## 🧱 项目扩展方向
+### 🧱 项目扩展方向
 
 1. 整站搜索：支持多网站数据抓取。
 2. 在线更新：爬虫 + 信号机制实现索引热加载。
@@ -185,14 +182,11 @@ http://localhost:8081/index.html
 
 ---
 
-## 🏁 作者与许可
+### 🏁 作者与许可
 
 * **Author**：Edison
 * **Language**：C++
 * **License**：MIT
 * **Repository**：[GitHub Link](https://github.com/yourname/boost-search-engine)
 
----
-
-是否希望我帮你再生成一个带 **中英文双语版 README**？（适合开源展示、吸引 star 的那种）
 
