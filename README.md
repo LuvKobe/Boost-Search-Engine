@@ -54,11 +54,7 @@ boost_search/
 - 系统：CentOS 7 / Ubuntu 18.04+
 - 编译器：GCC ≥ 7.0（推荐 7.3.1）
 - C++ 标准：C++11
-- 依赖库：
- - [Boost](https://www.boost.org/)
- - [cppjieba](https://github.com/yanyiwu/cppjieba)
- - [cpp-httplib](https://gitee.com/yuanfeng1897/cpp-httplib/tree/v0.7.15)
- - [jsoncpp](https://github.com/open-source-parsers/jsoncpp)
+- 依赖库：[Boost](https://www.boost.org/)、[cppjieba](https://github.com/yanyiwu/cppjieba)、[cpp-httplib](https://gitee.com/yuanfeng1897/cpp-httplib/tree/v0.7.15)、[jsoncpp](https://github.com/open-source-parsers/jsoncpp)
 
 
 ### 🧩 使用步骤
