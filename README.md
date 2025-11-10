@@ -1,15 +1,13 @@
 # Boost-Search-Engine
-基于正倒排索引的Boost搜索引擎
 
-一个基于 **C++** 实现的轻量级站内搜索引擎，使用 `Boost`、`cppjieba`、`cpp-httplib`、`jsoncpp` 等组件完成文档解析、索引建立与 HTTP 服务，支持前后端完整交互，提供搜索、摘要提取与结果展示功能。
-
-# 🧭 Boost Search Engine
 [![Language](https://img.shields.io/badge/language-C++11-blue.svg)]()
 [![License](https://img.shields.io/badge/license-MIT-green.svg)]()
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20CentOS%20%7C%20Ubuntu-lightgrey.svg)]()
 [![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 
+基于正倒排索引的Boost搜索引擎
 
+一个基于 **C++** 实现的轻量级站内搜索引擎，使用 `Boost`、`cppjieba`、`cpp-httplib`、`jsoncpp` 等组件完成文档解析、索引建立与 HTTP 服务，支持前后端完整交互，提供搜索、摘要提取与结果展示功能。
 
 ### 🚀 项目简介
 
