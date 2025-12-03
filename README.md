@@ -250,6 +250,6 @@ http://localhost:8081/index.html
 * **Author**：Edison
 * **Language**：C++
 * **License**：MIT
-* **Repository**：[GitHub Link](https://github.com/yourname/boost-search-engine)
+* **Repository**：[GitHub Link](https://github.com/LuvKobe/Boost-Search-Engine)
 
 
