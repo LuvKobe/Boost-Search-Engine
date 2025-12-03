@@ -9,7 +9,7 @@
 
 一个基于 **C++** 实现的轻量级站内搜索引擎，使用 `Boost`、`cppjieba`、`cpp-httplib`、`jsoncpp` 等组件完成文档解析、索引建立与 HTTP 服务，支持前后端完整交互，提供搜索、摘要提取与结果展示功能。
 
-### 🚀 项目简介
+## 🚀 项目简介
 
 本项目模拟真实搜索引擎的核心流程，从本地 HTML 文档中提取内容、建立索引，并通过浏览器提供搜索接口。
 
@@ -24,7 +24,7 @@
 
 
 
-### 🏗️ 项目结构
+## 🏗️ 项目结构
 
 ```
 boost_search/
@@ -52,7 +52,7 @@ boost_search/
 
 
 
-### ⚙️ 环境依赖与安装说明
+## ⚙️ 环境依赖与安装说明
 
 1️⃣ 基础环境要求
 
@@ -62,9 +62,9 @@ boost_search/
 - 依赖库：[Boost](https://www.boost.org/)、[cppjieba](https://github.com/yanyiwu/cppjieba)、[cpp-httplib](https://gitee.com/yuanfeng1897/cpp-httplib/tree/v0.7.15)、[jsoncpp](https://github.com/open-source-parsers/jsoncpp)
 
 
-### 🧩 使用步骤
+## 🧩 使用步骤
 
-#### 1️⃣ 准备数据
+### 1️⃣ 准备数据
 
 下载 Boost 官方文档：
 
@@ -74,7 +74,7 @@ tar -xzf boost_1_89_0.tar.gz
 cp -r boost_1_89_0/doc/html/* data/input/
 ```
 
-#### 2️⃣ 安装依赖库
+### 2️⃣ 安装依赖库
 
 安装 Boost：
 ```bash
@@ -86,7 +86,7 @@ sudo yum install -y boost-devel
 sudo yum install -y jsoncpp-devel
 ```
 
-#### 3️⃣ 更新 GCC（CentOS 7 默认为 4.8.5，过旧）
+### 3️⃣ 更新 GCC（CentOS 7 默认为 4.8.5，过旧）
 
 cpp-httplib 等库在旧版 GCC 下编译会失败，建议安装较新版本（如 7.3.1）。
 
@@ -124,23 +124,23 @@ source ~/.bash_profile
 ```
 这样每次登录都会自动使用新版 GCC。
 
-#### 4️⃣ cpp-httplib 版本建议
+### 4️⃣ cpp-httplib 版本建议
 
 推荐版本：[v0.7.15](https://gitee.com/yuanfeng1897/cpp-httplib/tree/v0.7.15)
 
 新版 httplib 可能与非最新 GCC 存在兼容性问题。
 
 
-### 🧩 使用步骤
+## 🧩 使用步骤
 
-#### 1️⃣ 准备数据
+### 1️⃣ 准备数据
 ```bash
 wget https://boostorg.jfrog.io/artifactory/main/release/1.89.0/source/boost_1_89_0.tar.gz
 tar -xzf boost_1_89_0.tar.gz
 cp -r boost_1_89_0/doc/html/* data/input/
 ```
 
-#### 2️⃣ 生成原始文本（去标签）
+### 2️⃣ 生成原始文本（去标签）
 
 ```bash
 g++ parser.cpp -o parser -lboost_system -lboost_filesystem -std=c++11
@@ -155,7 +155,7 @@ data/raw_html/raw.txt
 
 
 
-#### 3️⃣ 建立索引与检索测试
+### 3️⃣ 建立索引与检索测试
 
 ```bash
 g++ debug.cc -o debug -ljsoncpp -std=c++11
@@ -172,7 +172,7 @@ Please Enter Your Search Query# regex
 
 
 
-#### 4️⃣ 启动 HTTP 服务端
+### 4️⃣ 启动 HTTP 服务端
 
 ```bash
 g++ http_server.cc -o http_server -ljsoncpp -lpthread -std=c++11
@@ -187,7 +187,7 @@ http://localhost:8081
 
 
 
-#### 5️⃣ 打开前端页面
+### 5️⃣ 打开前端页面
 
 在浏览器中访问：
 
@@ -199,7 +199,7 @@ http://localhost:8081/index.html
 
 
 
-### 🧠 搜索原理简介
+## 🧠 搜索原理简介
 
 1. **正排索引 (Forward Index)**
 
@@ -224,7 +224,7 @@ http://localhost:8081/index.html
 
 
 
-### 💡 前端说明
+## 💡 前端说明
 
 * **HTML + CSS + jQuery** 实现；
 * 搜索输入框调用 Ajax 请求 `/s?word=xxx`；
@@ -235,7 +235,7 @@ http://localhost:8081/index.html
 
 
 
-### 🧱 项目扩展方向
+## 🧱 项目扩展方向
 
 1. 整站搜索：支持多网站数据抓取。
 2. 在线更新：爬虫 + 信号机制实现索引热加载。
@@ -245,7 +245,7 @@ http://localhost:8081/index.html
 6. 用户系统：接入 MySQL，实现登录注册与个性化搜索。
 
 
-### 🏁 作者与许可
+## 🏁 作者与许可
 
 * **Author**：Edison
 * **Language**：C++
